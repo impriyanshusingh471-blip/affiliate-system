@@ -1,0 +1,41 @@
+<%- include("partials/header", { pageTitle: "Affiliate Dashboard" }) %>
+
+<h1>Your Dashboard</h1>
+
+<p>Your referral link:</p>
+<div class="link-box"><%= referralLink %></div>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <h2><%= totalClicks %></h2>
+    <span>Total Clicks</span>
+  </div>
+  <div class="stat-card">
+    <h2><%= todayClicks %></h2>
+    <span>Today's Clicks</span>
+  </div>
+</div>
+
+<h2>Request Payout</h2>
+<form action="/payout-request" method="POST">
+  <label>Amount</label>
+  <input type="number" name="amount" required />
+  <button type="submit">Request</button>
+</form>
+
+<h2>Your Payout Requests</h2>
+
+<table>
+  <tr><th>Amount</th><th>Status</th><th>Date</th></tr>
+
+  <% payouts.forEach(p => { %>
+    <tr>
+      <td><%= p.amount %></td>
+      <td><%= p.status %></td>
+      <td><%= p.createdAt.toLocaleString() %></td>
+    </tr>
+  <% }) %>
+
+</table>
+
+<%- include("partials/footer") %>
